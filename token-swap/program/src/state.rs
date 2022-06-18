@@ -66,7 +66,7 @@ impl SwapVersion {
 
     /// Unpack the swap account based on its version, returning the result as a
     /// SwapState trait object
-    pub fn unpack(input: &[u8]) -> Result<Arc<dyn SwapState>, ProgramError> {
+    pub fn unpack(input: &[u8]) -> Result<Arc<dyn SwapState + Sync + Send>, ProgramError> {
         let (&version, rest) = input
             .split_first()
             .ok_or(ProgramError::InvalidAccountData)?;
